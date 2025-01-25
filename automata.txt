@@ -1,0 +1,37 @@
+# States
+states: q0, q1, qR, qA
+
+# Alphabet. There is special keyword INPUT_END, please use it to indicate end of input 
+alphabet: 0, 1, INPUT_END
+
+# Initial State
+initial_state: q0
+
+# Final States
+final_states: qA
+
+# Rejecting States
+rejecting_states: qR
+
+# Transition Function. Special keyword STACK_END indicates symbol used for end of stack.
+transition_function:
+    q0:
+        (0, STACK_END) -> q1 [STACK_END, 0]
+        (0, 0) -> q1 [0, 0]
+        (0, 1) -> q1 []
+        (1, STACK_END) -> q0 [STACK_END, 1]
+        (1, 0) -> q0 []
+        (1, 1) -> q0 [1, 1]
+        (INPUT_END, STACK_END) -> qA [STACK_END]
+        (INPUT_END, 0) -> qR []
+        (INPUT_END, 1) -> qR []
+    q1:
+        (0, STACK_END) -> q0 [STACK_END]
+        (0, 0) -> q0 [0]
+        (0, 1) -> q0 [1]
+        (1, STACK_END) -> q1 [STACK_END, 1]
+        (1, 0) -> q1 []
+        (1, 1) -> q1 [1, 1]
+        (INPUT_END, STACK_END) -> qR [STACK_END]
+        (INPUT_END, 0) -> qR [0]
+        (INPUT_END, 1) -> qR [1]
